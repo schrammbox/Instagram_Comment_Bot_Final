@@ -4,6 +4,8 @@ certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
 clarifai==2.6.2
+click==8.0.1
+colorama==0.4.4
 configparser==3.8.1
 cryptography==3.4.7
 EasyProcess==0.3
@@ -31,6 +33,3 @@ tqdm==4.60.0
 tzlocal==2.1
 urllib3==1.26.4
 webdriverdownloader==1.1.0.3
-
-setuptools~=57.0.0
-click~=8.0.1
