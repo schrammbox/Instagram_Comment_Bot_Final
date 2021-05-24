@@ -1,3 +1,7 @@
+__author__ = "Christian Schramm & Leon Kasimir Koncebovski"
+__version__ = "1.0.4"
+__email__ = "schrammc@th-brandenburg.de"
+
 import random
 from selenium import webdriver
 from selenium.webdriver.common.by import By
