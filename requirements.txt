@@ -31,3 +31,6 @@ tqdm==4.60.0
 tzlocal==2.1
 urllib3==1.26.4
 webdriverdownloader==1.1.0.3
+
+setuptools~=57.0.0
+click~=8.0.1

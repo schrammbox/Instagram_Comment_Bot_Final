@@ -4,26 +4,31 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from time import sleep
-
 import re
+import click
 
 regex = re.compile('[^a-zA-Z]')  # nur alphabetische Nutzernamen
 
 
+@click.command()
+@click.option('-ha', '--hashtag', default='Programminghumor', help='Leave for default: Programminghumor')
+@click.option('-u', '--username', default='robbylindi123', help='Leave for default: robbylindi123')
+@click.option('-p', '--password', default='RobbyLindi1234', help='Leave for default: RobbyLindi1234')
 class Main:
 
-    def __init__(self):
+    # def cli(self):
+    def __init__(self, hashtag):
         self.browser = webdriver.Chrome('chromedriver.exe')
         self.browser.get("https://www.instagram.com/accounts/login/")
 
     def insta_login(self, username, password):
-        username_web_element = self.browser.find_element_by_xpath("//input[@name=\"username\"]")
-        username_web_element.send_keys(username)
+        username_webElement = self.browser.find_element_by_xpath("//input[@name=\"username\"]")
+        username_webElement.send_keys(username)
 
         sleep(3)
 
-        password_web_element = self.browser.find_element_by_xpath("//input[@name=\"password\"]")
-        password_web_element.send_keys(password)
+        password_webElement = self.browser.find_element_by_xpath("//input[@name=\"password\"]")
+        password_webElement.send_keys(password)
 
         login = self.browser.find_element_by_xpath("//button[@class=\"sqdOP  L3NKy   y3zKF     \"]")
         login.click()
@@ -54,8 +59,8 @@ class Main:
         sleep(2)
 
     def skip_notifications(self):
-        skipNots = self.browser.find_element_by_xpath("//button[@class=\"aOOlW   HoLwm \"]")
-        skipNots.click()
+        skipnots = self.browser.find_element_by_xpath("//button[@class=\"aOOlW   HoLwm \"]")
+        skipnots.click()
 
         sleep(2)
 
@@ -65,10 +70,12 @@ class Main:
     def wait_for_objects(self, type, string):
         return WebDriverWait(self.browser, 3).until(ec.presence_of_all_elements_located((type, string)))
 
-    def post_comments(self, hashtag, comment):
+    @click.command()
+    @click.option('-ha', '--hashtag', default='Programminghumor', help='Leave for default: Programminghumor')
+    def post_comments(self, hashtag):
         sleep(2)
 
-        random_comments = [comment]
+        random_comments = [input("Bitte Kommentar eingeben: ")]
         self.browser.get(f"https://www.instagram.com/explore/tags/{hashtag}/")
 
         pictures = self.wait_for_objects(By.CSS_SELECTOR, '._9AhH0')
@@ -97,7 +104,6 @@ class Main:
 
             sleep(random.randint(2, 10))
 
-
 instance = Main()
 
 cookies = instance.browser.find_element_by_xpath("//button[@class=\"aOOlW  bIiDR  \"]")
@@ -110,3 +116,7 @@ instance.insta_login("robbylindi123", "RobbyLindi1234")
 instance.save_insta_creds()
 
 instance.skip_notifications()
+
+# instance.like_posts("Football", 3)
+
+instance.post_comments(1, hashtag)
